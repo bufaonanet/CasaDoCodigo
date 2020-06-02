@@ -22,9 +22,9 @@ namespace CasaDoCodigo.Models
 
         public Produto(string codigo, string nome, decimal preco)
         {
-            this.Codigo = codigo;
-            this.Nome = nome;
-            this.Preco = preco;
+            Codigo = codigo;
+            Nome = nome;
+            Preco = preco;
         }
     }
 }
