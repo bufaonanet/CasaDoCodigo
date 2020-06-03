@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CasaDoCodigo.DB;
 
 namespace CasaDoCodigo
 {
@@ -16,7 +17,7 @@ namespace CasaDoCodigo
         {
             Configuration = configuration;
         }
-        
+
         public IConfiguration Configuration { get; }
 
         // Esse método é usando para adicionar servições a aplicação
@@ -28,10 +29,13 @@ namespace CasaDoCodigo
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connectionString)
             );
+
+            //Adiciona uma instancia temporário para a classe DataService
+            services.AddTransient<IDataService, DataService>();
         }
 
         // Onde os servições são utilizados e configuração de pipeline de requisições http 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
@@ -54,8 +58,10 @@ namespace CasaDoCodigo
                     template: "{controller=Pedido}/{action=Carrossel}/{id?}");
             });
 
-            //Garante que o banco de dados foi criado
-            serviceProvider.GetService<ApplicationContext>().Database.EnsureCreated();
+
+            serviceProvider.GetService<IDataService>().InicializaDb();
         }
+
+
     }
 }

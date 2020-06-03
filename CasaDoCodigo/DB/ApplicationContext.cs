@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CasaDoCodigo
+namespace CasaDoCodigo.DB
 {
     public class ApplicationContext : DbContext
     {
@@ -15,7 +15,7 @@ namespace CasaDoCodigo
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);            
 
             modelBuilder.Entity<Produto>().HasKey(p => p.Id);
 
