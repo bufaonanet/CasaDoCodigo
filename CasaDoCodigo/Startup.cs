@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CasaDoCodigo.DB;
+using CasaDoCodigo.Repositories;
 
 namespace CasaDoCodigo
 {
@@ -32,6 +33,7 @@ namespace CasaDoCodigo
 
             //Adiciona uma instancia temporário para a classe DataService
             services.AddTransient<IDataService, DataService>();
+            services.AddTransient<IProdutoRepository, ProdutoRepository>();
         }
 
         // Onde os servições são utilizados e configuração de pipeline de requisições http 
