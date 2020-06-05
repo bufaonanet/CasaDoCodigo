@@ -34,6 +34,9 @@ namespace CasaDoCodigo
             // "services.AddTransient" Adiciona uma instancia temporário para as classes 
             services.AddTransient<IDataService, DataService>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
+            services.AddTransient<ICadastroRepository, CadastroRepository>();
+            services.AddTransient<IItemPedidoRepository, ItemPedidoRepository>();
+            services.AddTransient<IPedidoRepository, PedidoRepository>();
         }
 
         // Onde os servições são utilizados e configuração de pipeline de requisições http 
