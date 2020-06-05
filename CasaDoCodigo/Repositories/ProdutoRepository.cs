@@ -13,7 +13,7 @@ namespace CasaDoCodigo.Repositories
 
         public IList<Produto> GetProdutos()
         {
-            return _dbSet.ToList();
+            return _dbSet.OrderBy(p => p.Codigo).ToList();
         }
 
         public void SaveLivros(List<Livro> livros)
