@@ -31,7 +31,7 @@ namespace CasaDoCodigo
                 options.UseSqlServer(connectionString)
             );
 
-            //Adiciona uma instancia temporário para a classe DataService
+            // "services.AddTransient" Adiciona uma instancia temporário para as classes 
             services.AddTransient<IDataService, DataService>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
         }
