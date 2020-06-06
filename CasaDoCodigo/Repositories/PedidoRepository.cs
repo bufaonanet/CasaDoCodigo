@@ -1,6 +1,7 @@
 ﻿using CasaDoCodigo.DB;
 using CasaDoCodigo.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -34,7 +35,7 @@ namespace CasaDoCodigo.Repositories
             var pedido = GetPedido();
             var itemPedido = _context.Set<ItemPedido>()
                             .Where(ip => ip.Produto.Codigo == codigo
-                                   && ip.Pedido.Id == pedido.Id)
+                                      && ip.Pedido.Id == pedido.Id)
                             .SingleOrDefault();
 
             if (itemPedido == null)
@@ -43,6 +44,7 @@ namespace CasaDoCodigo.Repositories
                 _context.Set<ItemPedido>().Add(itemPedido);
                 _context.SaveChanges();
             }
+
         }
 
         public Pedido GetPedido()
@@ -50,6 +52,8 @@ namespace CasaDoCodigo.Repositories
             var pedidoId = GetPedidoId();
 
             var pedido = _dbSet
+                .Include(p => p.Itens)
+                .ThenInclude(i => i.Produto)
                 .Where(p => p.Id == pedidoId)
                 .SingleOrDefault();
 
