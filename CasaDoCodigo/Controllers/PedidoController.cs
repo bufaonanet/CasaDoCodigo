@@ -12,12 +12,14 @@ namespace CasaDoCodigo.Controllers
     {
         private readonly IProdutoRepository _produtoRepository;
         private readonly IPedidoRepository _pedidoRepository;
+        private readonly IItemPedidoRepository _itemPedidoRepository;
 
         public PedidoController(IProdutoRepository produtoRepository,
-            IPedidoRepository pedidoRepository)
+            IPedidoRepository pedidoRepository, IItemPedidoRepository itemPedidoRepository)
         {
             _produtoRepository = produtoRepository;
             _pedidoRepository = pedidoRepository;
+            _itemPedidoRepository = itemPedidoRepository;
         }
 
         public IActionResult Cadastro()
@@ -49,8 +51,10 @@ namespace CasaDoCodigo.Controllers
         }
 
         [HttpPost]
-        public void UpdateQuantidade([FromBody]ItemPedido itemPedido)
+        public void UpdateQuantidade([FromBody] ItemPedido itemPedido)
         {
+            _itemPedidoRepository.UpdateQuantidade(itemPedido);
+
 
         }
     }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.CodeAnalysis.CSharp;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace CasaDoCodigo.Models
@@ -7,7 +9,7 @@ namespace CasaDoCodigo.Models
     public class ItemPedido : BaseModel
     {
         [Required]
-        [DataMember]       
+        [DataMember]
         public Pedido Pedido { get; private set; }
         [Required]
         [DataMember]
@@ -30,6 +32,11 @@ namespace CasaDoCodigo.Models
             Produto = produto;
             Quantidade = quantidade;
             PrecoUnitario = precoUnitario;
+        }
+
+        internal void AtualizaQuantidade(int quantidade)
+        {
+            Quantidade = quantidade;
         }
     }
 }
