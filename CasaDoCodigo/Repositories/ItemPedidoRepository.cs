@@ -6,7 +6,8 @@ namespace CasaDoCodigo.Repositories
 {
     public interface IItemPedidoRepository
     {
-        void UpdateQuantidade(ItemPedido itemPedido);
+        ItemPedido GetItemPedido(int itemPedidoId);
+        void RemoveItemPedido(int itemPedidoId);
     }
 
     public class ItemPedidoRepository : BaseRepository<ItemPedido>, IItemPedidoRepository
@@ -15,18 +16,15 @@ namespace CasaDoCodigo.Repositories
         {
         }
 
-        public void UpdateQuantidade(ItemPedido itemPedido)
+        public ItemPedido GetItemPedido(int itemPedidoId)
         {
-            var itemPedidoDb = _dbSet
-                                     .Where(ip => ip.Id == itemPedido.Id)
-                                     .SingleOrDefault();
+            return _dbSet.Where(ip => ip.Id == itemPedidoId)
+                         .SingleOrDefault();
+        }
 
-            if (itemPedidoDb != null)
-            {
-                itemPedidoDb.AtualizaQuantidade(itemPedido.Quantidade);
-
-                _context.SaveChanges();
-            }
+        public void RemoveItemPedido(int itemPedidoId)
+        {
+            _dbSet.Remove(GetItemPedido(itemPedidoId));
         }
     }
 }
