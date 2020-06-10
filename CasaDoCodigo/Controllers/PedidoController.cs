@@ -53,15 +53,15 @@ namespace CasaDoCodigo.Controllers
             return View(_produtoRepository.GetProdutos());
         }
 
-        [HttpPost]
+        [HttpPost]        
+        [ValidateAntiForgeryToken]//protege contra ataques de Falsificação de solicitação entre sites(Cross-site Request Forgery)
         public IActionResult Resumo(Cadastro cadastro)
         {
             if (ModelState.IsValid)
             {
                 Pedido pedido = _pedidoRepository.UpdateCadastro(cadastro);
-                View(pedido);
+                return View(pedido);
             }
-
 
             return RedirectToAction("Cadastro");
         }

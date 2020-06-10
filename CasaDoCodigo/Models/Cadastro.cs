@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CasaDoCodigo.Models
 {
@@ -12,7 +13,7 @@ namespace CasaDoCodigo.Models
         public string Nome { get; set; } = "";
 
         [Required(ErrorMessage = "Email obritatório")]
-        [EmailAddress(ErrorMessage = "Entre com um email válido")]      
+        [EmailAddress(ErrorMessage = "Entre com um email válido")]
         public string Email { get; set; } = "";
 
         [Required(ErrorMessage = "Telefone obritatório")]
@@ -39,6 +40,19 @@ namespace CasaDoCodigo.Models
 
         public Cadastro()
         {
+        }
+
+        public void Update(Cadastro novoCadastro)
+        {
+            Nome = novoCadastro.Nome;
+            Email = novoCadastro.Email;
+            Telefone = novoCadastro.Telefone;
+            Endereco = novoCadastro.Endereco;
+            Complemento = novoCadastro.Complemento;
+            Bairro = novoCadastro.Bairro;
+            Municipio = novoCadastro.Municipio;
+            UF = novoCadastro.UF;
+            CEP = novoCadastro.CEP;
         }
     }
 }
