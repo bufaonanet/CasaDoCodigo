@@ -2,6 +2,7 @@
 using CasaDoCodigo.Models.ViewmModels;
 using CasaDoCodigo.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,13 @@ namespace CasaDoCodigo.Controllers
 
         public IActionResult Cadastro()
         {
-            return View();
+            Pedido pedido = _pedidoRepository.GetPedido();
+
+            if (pedido == null)
+            {
+                return RedirectToAction(nameof(Carrossel));
+            }
+            return View(pedido.Cadastro);
         }
 
         public IActionResult Carrinho(string codigo)
@@ -46,10 +53,17 @@ namespace CasaDoCodigo.Controllers
             return View(_produtoRepository.GetProdutos());
         }
 
-        public IActionResult Resumo()
+        [HttpPost]
+        public IActionResult Resumo(Cadastro cadastro)
         {
-            Pedido pedido = _pedidoRepository.GetPedido();
-            return View(pedido);
+            if (ModelState.IsValid)
+            {
+                Pedido pedido = _pedidoRepository.UpdateCadastro(cadastro);
+                View(pedido);
+            }
+
+
+            return RedirectToAction("Cadastro");
         }
 
         [HttpPost]
