@@ -29,11 +29,18 @@ class Carrinho {
     }
 
     postQuantidade(data) {
+
+        let token = $('[name=__RequestVerificationToken]').val();
+
+        let header = {};
+        header['RequestVerificationToken'] = token;
+        
         $.ajax({
             url: '/pedido/UpdateQuantidade',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(data)
+            data: JSON.stringify(data),
+            headers: header
         }).done(function (response) {
             let itemPedido = response.itemPedido;
             let linhaDoItem = $('[item-id=' + itemPedido.id + ']');
@@ -47,7 +54,7 @@ class Carrinho {
                 linhaDoItem.remove();
             }
 
-            debugger;
+            debugger;            
         });
 
     }
