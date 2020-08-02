@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CasaDoCodigo.DB;
 using CasaDoCodigo.Repositories;
+using CasaDoCodigo.Repositories.Interfaces;
 
 namespace CasaDoCodigo
 {
@@ -39,6 +40,7 @@ namespace CasaDoCodigo
             services.AddTransient<ICadastroRepository, CadastroRepository>();
             services.AddTransient<IItemPedidoRepository, ItemPedidoRepository>();
             services.AddTransient<IPedidoRepository, PedidoRepository>();
+            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         }
 
         // Onde os servições são utilizados e configuração de pipeline de requisições http 

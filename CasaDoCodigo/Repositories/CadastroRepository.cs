@@ -1,14 +1,11 @@
-﻿using CasaDoCodigo.DB;
-using CasaDoCodigo.Models;
-using System;
+﻿using System;
 using System.Linq;
+using CasaDoCodigo.DB;
+using CasaDoCodigo.Models;
+using CasaDoCodigo.Repositories.Interfaces;
 
 namespace CasaDoCodigo.Repositories
-{
-    public interface ICadastroRepository
-    {
-        Cadastro Update(int cadastroId, Cadastro novoCadastro);
-    }
+{    
 
     public class CadastroRepository : BaseRepository<Cadastro>, ICadastroRepository
     {

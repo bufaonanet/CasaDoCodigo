@@ -1,6 +1,7 @@
 ﻿using CasaDoCodigo.Models;
 using CasaDoCodigo.Models.ViewmModels;
 using CasaDoCodigo.Repositories;
+using CasaDoCodigo.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;

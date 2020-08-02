@@ -1,14 +1,22 @@
-﻿using CasaDoCodigo.DB;
-using CasaDoCodigo.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using CasaDoCodigo.DB;
+using CasaDoCodigo.Models;
+using CasaDoCodigo.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CasaDoCodigo.Repositories
 {
     public class ProdutoRepository : BaseRepository<Produto>, IProdutoRepository
     {
-        public ProdutoRepository(ApplicationContext context) : base(context)
+        private readonly ICategoriaRepository _categoriaRepository;
+        public ProdutoRepository(
+            ApplicationContext context,
+            ICategoriaRepository categoriaRepository
+        ) : base(context)
         {
+            _categoriaRepository = categoriaRepository;
         }
 
         public IList<Produto> GetProdutos()
@@ -16,7 +24,7 @@ namespace CasaDoCodigo.Repositories
             return _dbSet.OrderBy(p => p.Codigo).ToList();
         }
 
-        public void SaveLivros(List<Livro> livros)
+        public async Task SaveLivros(List<Livro> livros)
         {
             foreach (var livro in livros)
             {
@@ -24,10 +32,12 @@ namespace CasaDoCodigo.Repositories
 
                 if (!produtoJaSalvo)
                 {
-                    _dbSet.Add(new Produto(livro.Codigo, livro.Nome, livro.Preco));
+                    Categoria categoria = await _categoriaRepository.SaveCategoria(livro.Categoria);
+                    
+                    _dbSet.Add(new Produto(livro.Codigo, livro.Nome, livro.Preco, categoria));
                 }
             }
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 
@@ -35,6 +45,7 @@ namespace CasaDoCodigo.Repositories
     {
         public string Codigo { get; set; }
         public string Nome { get; set; }
+        public string Categoria { get; set; }
         public decimal Preco { get; set; }
     }
 }

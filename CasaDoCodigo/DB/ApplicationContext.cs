@@ -18,6 +18,7 @@ namespace CasaDoCodigo.DB
             base.OnModelCreating(modelBuilder);            
 
             modelBuilder.Entity<Produto>().HasKey(p => p.Id);
+            modelBuilder.Entity<Produto>().HasOne(p => p.Categoria).WithMany(c => c.Produtos);
 
             modelBuilder.Entity<Pedido>().HasKey(p => p.Id);
             modelBuilder.Entity<Pedido>().HasMany(p => p.Itens).WithOne(p => p.Pedido);
@@ -29,7 +30,6 @@ namespace CasaDoCodigo.DB
 
             modelBuilder.Entity<Cadastro>().HasKey(p => p.Id);
             modelBuilder.Entity<Cadastro>().HasOne(p => p.Pedido);
-
         }
     }
 }

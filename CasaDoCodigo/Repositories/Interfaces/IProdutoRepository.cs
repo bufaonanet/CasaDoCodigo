@@ -1,11 +1,12 @@
 ﻿using CasaDoCodigo.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace CasaDoCodigo.Repositories
+namespace CasaDoCodigo.Repositories.Interfaces
 {
     public interface IProdutoRepository
     {
-        void SaveLivros(List<Livro> livros);
+        Task SaveLivros(List<Livro> livros);
         IList<Produto> GetProdutos();
     }
 }

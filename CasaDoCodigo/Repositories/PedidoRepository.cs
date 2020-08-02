@@ -1,26 +1,21 @@
 ﻿using CasaDoCodigo.DB;
 using CasaDoCodigo.Models;
 using CasaDoCodigo.Models.ViewmModels;
+using CasaDoCodigo.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
 namespace CasaDoCodigo.Repositories
-{
-    public interface IPedidoRepository
-    {
-        void AddItem(string codigo);
-        Pedido GetPedido();
-        UpdateQuantidadeResponse UpdateQuantidade(ItemPedido itemPedido);
-        Pedido UpdateCadastro(Cadastro cadastro);
-    }
+{    
 
     public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
     {
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IItemPedidoRepository _itemPedidoRepository;
         private readonly ICadastroRepository _cadastroRepository;
+
         public PedidoRepository(ApplicationContext context,
             IHttpContextAccessor contextAccessor,
             IItemPedidoRepository itemPedidoRepository,
